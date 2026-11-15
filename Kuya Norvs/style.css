@@ -1,0 +1,261 @@
+/* ==========================================================
+   PHOTOGRAPHY PORTFOLIO - style.css
+   1. Variables  2. Base  3. Buttons  4. Nav  5. Hero
+   6. Gallery  7. About  8. Services  9. Projects
+   10. Testimonials  11. Contact  12. Footer  13. Responsive
+   ========================================================== */
+
+/* 1. VARIABLES - change colors, fonts and spacing here */
+:root {
+  --bg: #121212;
+  --bg-soft: #1a1a1a;
+  --line: #2e2e2e;
+  --text: #f2f2f2;
+  --text-muted: #b5b5b5;
+  --accent: #c8a46a;
+
+  --font-heading: Georgia, "Times New Roman", serif;
+  --font-body: "Helvetica Neue", Arial, sans-serif;
+
+  --size-small: 0.9rem;
+  --size-base: 1.05rem;
+  --size-h2: clamp(2rem, 4vw, 3rem);
+  --size-h1: clamp(2.6rem, 7vw, 5.5rem);
+
+  --space-s: 1rem;
+  --space-m: 2rem;
+  --space-l: 5rem;
+  --max-width: 1200px;
+  --speed: 0.3s;
+}
+
+/* 2. BASE */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--size-base);
+  line-height: 1.7;
+}
+
+img { display: block; width: 100%; height: 100%; object-fit: cover; }
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+
+h1, h2, h3 { font-family: var(--font-heading); font-weight: 400; line-height: 1.2; }
+h2 { font-size: var(--size-h2); margin-bottom: var(--space-s); }
+h3 { font-size: 1.4rem; }
+
+section { padding: var(--space-l) var(--space-m); }
+.container { max-width: var(--max-width); margin: 0 auto; }
+.section-intro { color: var(--text-muted); max-width: 55ch; margin-bottom: var(--space-m); }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
+}
+
+/* 3. BUTTONS */
+.btn {
+  display: inline-block;
+  padding: 0.8rem 1.6rem;
+  border: 1px solid var(--text);
+  font-size: var(--size-small);
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  background: transparent;
+  color: var(--text);
+  font-family: var(--font-body);
+  transition: background var(--speed), color var(--speed), border-color var(--speed);
+}
+.btn:hover { background: var(--text); color: var(--bg); }
+.btn-solid { background: var(--accent); border-color: var(--accent); color: #121212; }
+.btn-solid:hover { background: var(--text); border-color: var(--text); }
+
+/* 4. NAVIGATION */
+.site-header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 10;
+  background: rgba(18, 18, 18, 0.92);
+  border-bottom: 1px solid var(--line);
+}
+.nav {
+  max-width: var(--max-width); margin: 0 auto;
+  padding: 0.9rem var(--space-m);
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-m);
+}
+.brand { font-family: var(--font-heading); font-size: 1.4rem; }
+.nav-links { display: flex; gap: 1.8rem; font-size: var(--size-small); }
+.nav-links a { color: var(--text-muted); transition: color var(--speed); }
+.nav-links a:hover { color: var(--accent); }
+.nav .btn { padding: 0.5rem 1.2rem; }
+
+/* 5. HERO */
+.hero {
+  position: relative; min-height: 100vh; min-height: 100svh; padding: 0;
+  display: flex; align-items: flex-end;
+}
+.hero-bg { position: absolute; inset: 0; z-index: 0; }
+.hero-bg::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.35));
+}
+.hero-content {
+  position: relative; z-index: 1;
+  max-width: var(--max-width); width: 100%; margin: 0 auto;
+  padding: 0 var(--space-m) 6rem;
+}
+.hero h1 { font-size: var(--size-h1); max-width: 14ch; margin-bottom: var(--space-s); }
+.hero p { max-width: 48ch; color: #dcdcdc; margin-bottom: var(--space-m); }
+.hero-name { font-family: var(--font-heading); font-style: italic; color: var(--accent); margin-bottom: 0.5rem; }
+.hero-buttons { display: flex; flex-wrap: wrap; gap: var(--space-s); margin-bottom: var(--space-m); }
+.hero-location { font-size: var(--size-small); color: var(--text-muted); }
+
+/* 6. GALLERY - editorial grid with different image sizes */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 260px;
+  grid-auto-flow: dense;
+  gap: 0.8rem;
+}
+.gallery figure { position: relative; overflow: hidden; background: var(--bg-soft); }
+.gallery .wide { grid-column: span 2; }
+.gallery .tall { grid-row: span 2; }
+.gallery img { transition: transform 0.6s ease; }
+.gallery figure:hover img { transform: scale(1.05); }
+.gallery figcaption {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: 1.5rem 1rem 0.8rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  font-size: var(--size-small);
+  opacity: 0; transition: opacity var(--speed);
+}
+.gallery figure:hover figcaption,
+.gallery figure:focus-within figcaption { opacity: 1; }
+
+/* 7. ABOUT */
+.about { background: var(--bg-soft); }
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1.2fr;
+  gap: 4rem; align-items: center;
+}
+.about-photo { aspect-ratio: 4 / 5; overflow: hidden; border-bottom: 4px solid var(--accent); }
+.about-text p { color: var(--text-muted); margin-bottom: var(--space-s); max-width: 60ch; text-align: justify;}
+.about-facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-s); margin-top: var(--space-m); border-top: 1px solid var(--line); padding-top: var(--space-s); }
+.about-facts dt { font-size: var(--size-small); color: var(--text-muted); }
+.about-facts dd { font-family: var(--font-heading); font-size: 1.2rem; }
+
+/* 8. SERVICES */
+.services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-s); }
+.service-card {
+  background: var(--bg-soft); border: 1px solid var(--line);
+  display: flex; flex-direction: column;
+  transition: transform var(--speed), border-color var(--speed);
+}
+.service-card:hover { transform: translateY(-6px); border-color: var(--accent); }
+.service-card .thumb { aspect-ratio: 4 / 3; overflow: hidden; }
+.service-body { padding: 1.4rem; display: flex; flex-direction: column; gap: 0.7rem; flex: 1; }
+.service-body p { color: var(--text-muted); font-size: var(--size-small); flex: 1; }
+.price { color: var(--accent); font-size: var(--size-small); }
+.service-body a.link { border-bottom: 1px solid var(--accent); align-self: flex-start; transition: color var(--speed); }
+.service-body a.link:hover { color: var(--accent); }
+
+/* 9. FEATURED PROJECTS */
+.project {
+  display: grid; grid-template-columns: 1.4fr 1fr;
+  gap: 3rem; align-items: center; margin-bottom: var(--space-l);
+}
+.project:nth-of-type(even) { grid-template-columns: 1fr 1.4fr; }
+.project:nth-of-type(even) .project-photo { order: 2; }
+.project-photo { aspect-ratio: 3 / 2; overflow: hidden; }
+.project-photo img { transition: transform 0.6s ease; }
+.project:hover .project-photo img { transform: scale(1.04); }
+.project-meta { color: var(--accent); font-size: var(--size-small); margin-bottom: 0.5rem; }
+.project p { color: var(--text-muted); }
+
+/* 10. TESTIMONIALS */
+.testimonials { background: var(--bg-soft); }
+.quotes { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-m); }
+.quote { border-left: 2px solid var(--accent); padding-left: 1.4rem; }
+.quote p { font-family: var(--font-heading); font-size: 1.15rem; font-style: italic; margin-bottom: var(--space-s); }
+.quote footer { font-size: var(--size-small); color: var(--text-muted); }
+.note { margin-top: var(--space-m); font-size: var(--size-small); color: var(--accent); }
+
+/* 11. CONTACT / BOOKING */
+.contact-box { max-width: 700px; text-align: center; }
+.contact-box p { color: var(--text-muted); max-width: 50ch; margin: 0 auto var(--space-m); }
+.contact-list {
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: 0.6rem 2rem; margin-bottom: var(--space-m);
+}
+.contact-list a { border-bottom: 1px solid var(--line); transition: color var(--speed), border-color var(--speed); }
+.contact-list a:hover { color: var(--accent); border-color: var(--accent); }
+
+/* 12. FOOTER */
+.site-footer { border-top: 1px solid var(--line); padding: var(--space-m); }
+.footer-inner {
+  max-width: var(--max-width); margin: 0 auto;
+  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-s);
+  font-size: var(--size-small); color: var(--text-muted);
+}
+.footer-social { display: flex; gap: 1.2rem; }
+.site-footer a { transition: color var(--speed); }
+.site-footer a:hover { color: var(--accent); }
+
+/* 13. RESPONSIVE
+   Desktop styles are the default. Each block below only changes what
+   needs to change as the screen gets smaller (or larger). */
+
+/* Large desktop screens */
+@media (min-width: 1400px) {
+  :root { --max-width: 1360px; --size-base: 1.1rem; }
+  .gallery { grid-auto-rows: 300px; }
+}
+
+/* Tablets and small laptops */
+@media (max-width: 1000px) {
+  :root { --space-l: 4rem; }
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .quotes { grid-template-columns: 1fr; }
+  .gallery { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 240px; }
+  .about-grid { gap: 2.5rem; }
+}
+
+/* Phones and small tablets */
+@media (max-width: 800px) {
+  :root { --space-l: 3.5rem; --space-m: 1.25rem; }
+  html { scroll-padding-top: 110px; }
+
+  /* Header becomes two rows: brand + button, then a scrollable link row */
+  .nav { flex-wrap: wrap; row-gap: 0.4rem; }
+  .nav .btn { order: 2; }
+  .nav-links {
+    order: 3; width: 100%; gap: 1.4rem;
+    overflow-x: auto; white-space: nowrap; padding-bottom: 0.3rem;
+  }
+  .nav-links li { flex-shrink: 0; }
+
+  .about-grid,
+  .project,
+  .project:nth-of-type(even) { grid-template-columns: 1fr; gap: 2rem; }
+  .about-photo { max-width: 420px; }
+  .project:nth-of-type(even) .project-photo { order: 0; }
+
+  .hero-content { padding-bottom: 3.5rem; }
+  .gallery figcaption { opacity: 1; } /* no hover on touch screens */
+}
+
+/* Small phones */
+@media (max-width: 520px) {
+  .services-grid, .about-facts { grid-template-columns: 1fr; }
+  .gallery { grid-template-columns: 1fr; grid-auto-rows: 220px; }
+  .gallery .wide { grid-column: auto; }
+  .hero-buttons .btn { flex: 1 1 100%; text-align: center; }
+  .footer-inner { flex-direction: column; text-align: center; }
+}
